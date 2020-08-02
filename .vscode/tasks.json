@@ -1,0 +1,35 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "C/C++: g++.exe build active file",
+            "command": "C:\\TDM-GCC-32\\bin\\g++.exe",
+            "args": [
+                "-g",
+                "${fileDirname}\\**.cpp",
+                "-o",
+                "${fileDirname}\\debug\\Game.exe",
+                "-lsfml-graphics-d",
+                "-lsfml-window-d",
+                "-lsfml-audio-d",
+                "-lsfml-network-d",
+                "-lsfml-system-d",
+                "-IC:/SFML-2.5.0/include",
+                "-LC:/SFML-2.5.0/lib",
+                "-std=c++11"
+                
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
