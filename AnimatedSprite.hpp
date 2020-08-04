@@ -6,6 +6,12 @@ class AnimatedSprite{
     sf::Sprite& sprite;
     int currentFrame;
     float progress;
+
+
+
+
+
+    
     
     public:
     AnimatedSprite();
