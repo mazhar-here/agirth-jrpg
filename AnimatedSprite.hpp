@@ -14,8 +14,9 @@ class AnimatedSprite{
     
     
     public:
-    AnimatedSprite();
+    //AnimatedSprite();
     AnimatedSprite(sf::Sprite&,float);
+    //AnimatedSprite& operator=(const AnimatedSprite &rhs);
     void Update(float);
     void AddFrame(sf::IntRect); 
     void Initialize(int,int,int,int);

@@ -2,6 +2,7 @@
 
 
 
+
 AnimatedSprite::AnimatedSprite(sf::Sprite& sprite,float timePerFrame)
 :sprite(sprite)
 {
@@ -9,6 +10,8 @@ AnimatedSprite::AnimatedSprite(sf::Sprite& sprite,float timePerFrame)
     currentFrame=0;
     progress=0;
 }
+
+
 
 void AnimatedSprite::Update(float elapsedTime){
     progress+=elapsedTime;

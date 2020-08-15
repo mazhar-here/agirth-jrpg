@@ -10,7 +10,7 @@ class Player{
     int speed;
     sf::Sprite playerSprite;
     float timePerFrame;
-    //AnimatedSprite playerAnimation{playerSprite,timePerFrame};
+    AnimatedSprite playerAnimation;
 
     public:
     bool moveUp;
@@ -26,11 +26,11 @@ class Player{
         
     sf::Vector2f position;
     Player();
-    Player(const sf::Texture& playerTexture);
+    //Player(const sf::Texture& playerTexture);
+    void SetTexture(const sf::Texture& playerTexture);
     //void HandleInput(sf::Keyboard::Key key,bool isPressed);
     sf::Vector2<int> Move(sf::Vector2i);
     void Update(sf::Time elapsedTime, sf::View&);
-    void Update2(sf::Time elapsedTime);
     void Draw(sf::RenderWindow& window);
     sf::Vector2f GetPosition();
     sf::Vector2<int> TargetTile;

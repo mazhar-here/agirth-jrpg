@@ -2,7 +2,7 @@
 
 
 Game::Game()
-
+//:player(playerTexture)
 {
     
     mWindow.create(sf::VideoMode(768, 672), "SFML Application");
@@ -20,7 +20,7 @@ Game::Game()
         } 
     }
     map.Initialize(mapTexture,level,levelWidth,levelHeight);
-    player=Player(playerTexture);
+    player.SetTexture(playerTexture);
     mainView.reset(sf::FloatRect(0,0,256,224));
     timePerFrame=sf::seconds(1.0f/30.0f);
     

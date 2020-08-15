@@ -2,7 +2,9 @@
 //#include "TileMap.hpp"
 
 
-Player::Player(){
+Player::Player()
+:playerAnimation(playerSprite,timePerFrame)
+{
     moveUp=false;
     moveDown=false;
     moveLeft=false;
@@ -12,38 +14,42 @@ Player::Player(){
     isMovingUp=false;
     isMovingDown=false;
     position.x=128;position.y=128;
-    speed=90;
+    speed=100;
     canMove=true;
     targetTilePosition=position;
     
 }
 
 
-Player::Player(const sf::Texture& playerTexture)
-:Player()
-{
+// Player::Player(const sf::Texture& playerTexture)
+// :Player()
+// {
+//     playerSprite.setTexture(playerTexture);
+//     //playerAnimation=AnimatedSprite(playerSprite,0.1);
+//     //playerAnimation.Initialize(1,3,16,16);
+// }
+
+void Player::SetTexture(const sf::Texture& playerTexture){
     playerSprite.setTexture(playerTexture);
-    //playerAnimation=AnimatedSprite(playerSprite,0.1);
-    //playerAnimation.Initialize(1,3,16,16);
 }
 
 
 sf::Vector2i Player::Move(sf::Vector2i currentTile){
-    //sf::Vector2<int> currentTile=TileMap::GetTileIndex(position);
+    
     if(moveUp){
         currentTile.y-=1;
-        // moveUp=false;
+        
         }
     else if(moveDown){
-        // moveDown=false;
+        
         currentTile.y+=1;
     }
     else if(moveLeft){
-        // moveLeft=false;
+        
         currentTile.x-=1;
     }
     else if(moveRight){
-        // moveRight=false;
+        
         currentTile.x+=1;
     }
     return currentTile;    
@@ -77,11 +83,8 @@ void Player::Update(sf::Time elapsedTime,sf::View& view){
         sf::Vector2f oldPosition=position;
         position.x+=normal.x*speed*elapsedTime.asSeconds();
         position.y+=normal.y*speed*elapsedTime.asSeconds();
-        // position.x+=normal.x*4;
-        // position.y+=normal.y*4;
-    
-        //view.move(position-oldPosition);
     }
+
     if(isMovingUp && position.y<=targetTilePosition.y){
         position.y=targetTilePosition.y;
         canMove=true;
@@ -104,14 +107,13 @@ void Player::Update(sf::Time elapsedTime,sf::View& view){
         isMovingLeft=false;
     }
 
-    //playerAnimation.Update(elapsedTime.asSeconds());
-
-    // std::cout<<"Position is: "<<position.x<<","<<position.y<<"\n";    
 }
 
 void Player::Draw(sf::RenderWindow& window){
-    playerSprite.setPosition(position);
+    //playerSprite.setPosition(position);
+    playerSprite.setPosition(sf::Vector2f((int)position.x,(int)position.y));
     window.draw(playerSprite);
+    
     
 
 }
@@ -135,20 +137,5 @@ sf::Vector2f Player::Normalize(sf::Vector2f source)
         return source;
 }
 
-void Player::Update2(sf::Time elapsedTime){
-if(moveUp){
-        position.y-=speed*elapsedTime.asSeconds();
-        // moveUp=false;
-        }
-    else if(moveDown&& canMove){
-        position.y+=speed*elapsedTime.asSeconds();
-    }
-    else if(moveLeft&& canMove){
-        position.x-=speed*elapsedTime.asSeconds();
-    }
-    else if(moveRight&& canMove){
-        position.x+=speed*elapsedTime.asSeconds();
-    }
 
-}
 
