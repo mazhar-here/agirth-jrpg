@@ -95,7 +95,8 @@ void Game::Update(sf::Time elapsedTime){
    
         std::cout<<"Position is: "<<player.position.x<<","<<player.position.y<<"\n";
 
-        mainView.setCenter(player.GetPosition()+sf::Vector2f(0.375,0.375));
+        mainView.setCenter(sf::Vector2f((int)player.GetPosition().x,(int)player.GetPosition().y));
+        //mainView.setCenter(player.GetPosition());
 
 }
 
