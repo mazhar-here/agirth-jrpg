@@ -8,7 +8,7 @@ Game::Game()
     mWindow.create(sf::VideoMode(768, 672), "SFML Application");
     //mWindow.setVerticalSyncEnabled(true);
     //mWindow.setFramerateLimit(30);
-    playerTexture.loadFromFile("blue.png");
+    playerTexture.loadFromFile("green.png");
     mapTexture.loadFromFile("basictiles.png");
     levelWidth=levelHeight=60;
     for(int row=0;row<levelHeight;row++){

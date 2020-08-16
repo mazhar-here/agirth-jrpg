@@ -1,9 +1,7 @@
 #include "Player.hpp"
-//#include "TileMap.hpp"
-
 
 Player::Player()
-:playerAnimation(playerSprite,timePerFrame)
+:playerAnimation(playerSprite,timePerFrame),timePerFrame(400)
 {
     moveUp=false;
     moveDown=false;
@@ -17,6 +15,7 @@ Player::Player()
     speed=100;
     canMove=true;
     targetTilePosition=position;
+    playerAnimation.Initialize(1,3,16,16);
     
 }
 
@@ -39,7 +38,7 @@ sf::Vector2i Player::Move(sf::Vector2i currentTile){
     if(moveUp){
         currentTile.y-=1;
         
-        }
+    }
     else if(moveDown){
         
         currentTile.y+=1;
@@ -57,6 +56,7 @@ sf::Vector2i Player::Move(sf::Vector2i currentTile){
 }
 
 void Player::Update(sf::Time elapsedTime,sf::View& view){
+
     if(moveUp && canMove){
         targetTilePosition.y-=16;
         canMove=false;
@@ -106,6 +106,8 @@ void Player::Update(sf::Time elapsedTime,sf::View& view){
         canMove=true;
         isMovingLeft=false;
     }
+
+    playerAnimation.Update(elapsedTime.asMilliseconds());
 
 }
 

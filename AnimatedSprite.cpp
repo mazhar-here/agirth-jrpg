@@ -16,8 +16,10 @@ AnimatedSprite::AnimatedSprite(sf::Sprite& sprite,float timePerFrame)
 void AnimatedSprite::Update(float elapsedTime){
     progress+=elapsedTime;
     if(progress>=timePerFrame){
+        int tempi=frameList.size();
         currentFrame=(currentFrame+1)%frameList.size();
         sprite.setTextureRect(frameList[currentFrame]);
+        progress=0;
     }
 }
 
@@ -26,7 +28,8 @@ void AnimatedSprite::Initialize(int rows, int columns, int spriteHeight,int spri
     for(int i=0;i<columns;i++){
         for(int j=0;j<rows;j++ )
             frameList.push_back(sf::IntRect(i*spriteWidth,j*spriteHeight,spriteWidth,spriteHeight));
-    }    
+    }
+    sprite.setTextureRect(frameList[0]);    
 }
 
 void AnimatedSprite::AddFrame(sf::IntRect frameRect){
