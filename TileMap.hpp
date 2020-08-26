@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
-
+#include "json.hpp"
+#include <fstream>
 
 class TileMap{
     //TileMap();
@@ -7,9 +8,10 @@ class TileMap{
     sf::VertexArray vertexArray;
     //sf::Texture& tileset;
     int TILE_SIZE;
-    int levelWidth;
-    int levelHeight;
+    int levelWidth1;
+    int levelHeight1;
     
+    std::vector<int> mapLayer;
     
 
     

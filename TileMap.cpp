@@ -1,20 +1,36 @@
 #include "TileMap.hpp"
+using json = nlohmann::json;
 
 void TileMap::Initialize(const sf::Texture& tileset,const int* level,const int levelWidth,const int levelHeight){
-    this->levelHeight=levelHeight;
-    this->levelWidth=levelWidth;
+    
+    
+    json demoMap;
+    std::ifstream iDemoMap("DemoMap.json")>>demoMap;
+    std::vector<int>tempDemoMap=demoMap["layers"][0]["data"];
+    mapLayer=tempDemoMap;
+    
+    // this->levelHeight=levelHeight;
+    // this->levelWidth=levelWidth;
+
+    this->levelHeight1=demoMap["layers"][0]["gridCellsY"];
+    this->levelWidth1=demoMap["layers"][0]["gridCellsX"];;
+
     vertexArray.setPrimitiveType(sf::Quads);
     TILE_SIZE=16;
-    vertexArray.resize(levelWidth*levelHeight*4);
+    vertexArray.resize(levelWidth1*levelHeight1*4);
     int textureColumns=tileset.getSize().x/TILE_SIZE;
     int currentVertex=0;
     
+
+    
+    
+
             
     
-    for(int row=0;row<levelWidth;row++){
-        for(int column=0;column<levelHeight;column++){
+    for(int row=0;row<levelWidth1;row++){
+        for(int column=0;column<levelHeight1;column++){
 
-            int currentTile=level[row+column*levelWidth];
+            int currentTile=mapLayer[row+column*levelWidth1];
             int currentTextureColumn=currentTile%textureColumns;
             int currentTextureRow=currentTile/textureColumns;
             
