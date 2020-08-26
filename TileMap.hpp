@@ -7,17 +7,20 @@ class TileMap{
     
     sf::VertexArray vertexArray;
     //sf::Texture& tileset;
-    int TILE_SIZE;
-    int levelWidth1;
-    int levelHeight1;
+    
     
     std::vector<int> mapLayer;
+    
     
 
     
 
     public:
-    void Initialize(const sf::Texture& tileset,const int* level,const int levelWidth,const int levelHeight);
+    void Initialize(const sf::Texture& tileset,const std::string mapPath);
+    std::vector<std::string> collisionLayer;
+    int TILE_SIZE;
+    int levelWidth;
+    int levelHeight;
     void Draw(sf::RenderWindow& window,const sf::Texture& tileset);
     int GetTileSize();
     sf::Vector2f GetTilePixelPosition(int x, int y);

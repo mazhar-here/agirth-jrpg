@@ -19,7 +19,7 @@ Game::Game()
                 level[column+row*levelWidth]=13;
         } 
     }
-    map.Initialize(mapTexture,level,levelWidth,levelHeight);
+    map.Initialize(mapTexture,"DemoMap.json");
     player.SetTexture(playerTexture);
     mainView.reset(sf::FloatRect(0,0,256,224));
     timePerFrame=sf::seconds(1.0f/30.0f);
@@ -74,17 +74,17 @@ void Game::Update(sf::Time elapsedTime){
         sf::Vector2f oldPosition=player.GetPosition();
         player.Update(elapsedTime,mainView);
         sf::Vector2i playerTile=map.GetTileIndex(player.GetPosition());
-        if(level[playerTile.x+playerTile.y*levelWidth]==0 && (player.isMovingLeft || player.isMovingUp)){
+        if(map.collisionLayer[playerTile.x+playerTile.y*map.levelWidth]=="1" && (player.isMovingLeft || player.isMovingUp)){
             player.SetPosition(oldPosition);
             //player.targetTilePosition=oldPosition;
         }
-        else if(level[playerTile.x+1+playerTile.y*levelWidth]==0 && (player.isMovingRight))
+        else if(map.collisionLayer[playerTile.x+1+playerTile.y*map.levelWidth]=="1" && (player.isMovingRight))
         {
             player.SetPosition(oldPosition);
             //player.targetTilePosition=oldPosition;
 
         }
-        else if(level[playerTile.x+(playerTile.y+1)*levelWidth]==0 && (player.isMovingDown)){
+        else if(map.collisionLayer[playerTile.x+(playerTile.y+1)*map.levelWidth]=="1" && (player.isMovingDown)){
             player.SetPosition(oldPosition);
             //player.targetTilePosition=oldPosition;
 
