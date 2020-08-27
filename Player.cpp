@@ -11,7 +11,6 @@ Player::Player()
     isMovingLeft=false;
     isMovingUp=false;
     isMovingDown=false;
-    position.x=128;position.y=128;
     speed=100;
     canMove=true;
     targetTilePosition=position;
@@ -20,13 +19,6 @@ Player::Player()
 }
 
 
-// Player::Player(const sf::Texture& playerTexture)
-// :Player()
-// {
-//     playerSprite.setTexture(playerTexture);
-//     //playerAnimation=AnimatedSprite(playerSprite,0.1);
-//     //playerAnimation.Initialize(1,3,16,16);
-// }
 
 void Player::SetTexture(const sf::Texture& playerTexture){
     playerSprite.setTexture(playerTexture);
@@ -112,7 +104,6 @@ void Player::Update(sf::Time elapsedTime,sf::View& view){
 }
 
 void Player::Draw(sf::RenderWindow& window){
-    //playerSprite.setPosition(position);
     playerSprite.setPosition(sf::Vector2f((int)position.x,(int)position.y));
     window.draw(playerSprite);
     

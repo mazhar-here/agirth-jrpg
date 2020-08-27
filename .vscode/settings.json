@@ -35,6 +35,11 @@
         "streambuf": "cpp",
         "utility": "cpp",
         "typeinfo": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "valarray": "cpp",
+        "cstddef": "cpp",
+        "cstring": "cpp",
+        "forward_list": "cpp",
+        "memory": "cpp"
     }
 }

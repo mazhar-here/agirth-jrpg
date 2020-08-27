@@ -2,7 +2,6 @@
 
 
 Game::Game()
-//:player(playerTexture)
 {
     
     mWindow.create(sf::VideoMode(768, 672), "SFML Application");
@@ -10,17 +9,10 @@ Game::Game()
     //mWindow.setFramerateLimit(30);
     playerTexture.loadFromFile("green.png");
     mapTexture.loadFromFile("basictiles.png");
-    levelWidth=levelHeight=60;
-    for(int row=0;row<levelHeight;row++){
-        for(int column=0;column<levelWidth;column++){
-            if(row==0||column==0||row==levelHeight-1||column==levelWidth-1 )
-                level[column+row*levelWidth]=0;
-            else
-                level[column+row*levelWidth]=13;
-        } 
-    }
+    
     map.Initialize(mapTexture,"DemoMap.json");
     player.SetTexture(playerTexture);
+    player.SetPosition(map.GetStartPlayerPosition());
     mainView.reset(sf::FloatRect(0,0,256,224));
     timePerFrame=sf::seconds(1.0f/30.0f);
     
@@ -47,7 +39,6 @@ void Game::ProcessEvents(){
             mWindow.close();
         
         if(event.type==sf::Event::KeyPressed && event.key.code==sf::Keyboard::Escape){
-            //HandleInput(event.key.code,true);
             mWindow.close();
             
         }
@@ -74,22 +65,18 @@ void Game::Update(sf::Time elapsedTime){
         sf::Vector2f oldPosition=player.GetPosition();
         player.Update(elapsedTime,mainView);
         sf::Vector2i playerTile=map.GetTileIndex(player.GetPosition());
-        if(map.collisionLayer[playerTile.x+playerTile.y*map.levelWidth]=="1" && (player.isMovingLeft || player.isMovingUp)){
+        if(map.collisionLayer[playerTile.x+playerTile.y*map.GetMapDimensions().x]=="1" && (player.isMovingLeft || player.isMovingUp)){
             player.SetPosition(oldPosition);
-            //player.targetTilePosition=oldPosition;
         }
-        else if(map.collisionLayer[playerTile.x+1+playerTile.y*map.levelWidth]=="1" && (player.isMovingRight))
+        else if(map.collisionLayer[playerTile.x+1+playerTile.y*map.GetMapDimensions().x]=="1" && (player.isMovingRight))
         {
             player.SetPosition(oldPosition);
-            //player.targetTilePosition=oldPosition;
 
         }
-        else if(map.collisionLayer[playerTile.x+(playerTile.y+1)*map.levelWidth]=="1" && (player.isMovingDown)){
+        else if(map.collisionLayer[playerTile.x+(playerTile.y+1)*map.GetMapDimensions().x]=="1" && (player.isMovingDown)){
             player.SetPosition(oldPosition);
-            //player.targetTilePosition=oldPosition;
 
         }
-        //**player.Update2(elapsedTime);
 
 
    

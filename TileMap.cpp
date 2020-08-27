@@ -10,17 +10,26 @@ void TileMap::Initialize(const sf::Texture& tileset,const std::string mapPath){
     std::vector<int>tempMapLayer=demoMap["layers"][0]["data"];
     mapLayer=tempMapLayer;
 
+    // std::vector<int>tempMapLayer2=demoMap["layers"][1]["data"];
+    // mapLayer2=tempMapLayer2;    
+
     std::vector<std::string>tempCollisionLayer=demoMap["layers"][1]["grid"];
     collisionLayer=tempCollisionLayer;
-    // this->levelHeight=levelHeight;
-    // this->levelWidth=levelWidth;
 
-    levelHeight=demoMap["layers"][0]["gridCellsY"];
-    levelWidth=demoMap["layers"][0]["gridCellsX"];;
+
+
+    mapHeight=demoMap["layers"][0]["gridCellsY"];
+    mapWidth=demoMap["layers"][0]["gridCellsX"];;
+    TILE_SIZE=demoMap["layers"][0]["gridCellWidth"];
+    startPlayerPosition=sf::Vector2f(demoMap["layers"][2]["entities"][0]["x"],demoMap["layers"][2]["entities"][0]["y"]);
+
 
     vertexArray.setPrimitiveType(sf::Quads);
-    TILE_SIZE=16;
-    vertexArray.resize(levelWidth*levelHeight*4);
+    vertexArray.resize(mapWidth*mapHeight*4);
+
+    // vertexArray2.setPrimitiveType(sf::Quads);
+    // vertexArray2.resize(mapWidth*mapHeight*4);
+
     int textureColumns=tileset.getSize().x/TILE_SIZE;
     int currentVertex=0;
     
@@ -30,10 +39,10 @@ void TileMap::Initialize(const sf::Texture& tileset,const std::string mapPath){
 
             
     
-    for(int row=0;row<levelWidth;row++){
-        for(int column=0;column<levelHeight;column++){
+    for(int column=0;column<mapWidth;column++){
+        for(int row=0;row<mapHeight;row++){
 
-            int currentTile=mapLayer[row+column*levelWidth];
+            int currentTile=mapLayer[row+column*mapWidth];
             int currentTextureColumn=currentTile%textureColumns;
             int currentTextureRow=currentTile/textureColumns;
             
@@ -50,7 +59,7 @@ void TileMap::Initialize(const sf::Texture& tileset,const std::string mapPath){
             sf::Vector2f((currentTextureColumn+1)*TILE_SIZE,(currentTextureRow+1)*TILE_SIZE);
             vertexArray[currentVertex+3].texCoords=
             sf::Vector2f(currentTextureColumn*TILE_SIZE,(currentTextureRow+1)*TILE_SIZE);
-            
+
             currentVertex=currentVertex+4;
             
 
@@ -67,6 +76,7 @@ void TileMap::Initialize(const sf::Texture& tileset,const std::string mapPath){
 
 void TileMap::Draw(sf::RenderWindow& window,const sf::Texture& tileset){
     window.draw(vertexArray,&tileset);
+   
 }
 
 int TileMap::GetTileSize(){
@@ -81,6 +91,14 @@ sf::Vector2<int> TileMap::GetTileIndex(sf::Vector2f position){
 
 sf::Vector2f TileMap::GetTilePixelPosition(int x, int y){
     return sf::Vector2f(x*TILE_SIZE,y*TILE_SIZE);
+}
+
+sf::Vector2i TileMap::GetMapDimensions(){
+    return sf::Vector2i(mapWidth,mapHeight);
+}
+
+sf::Vector2f TileMap::GetStartPlayerPosition(){
+    return startPlayerPosition;
 }
 
 

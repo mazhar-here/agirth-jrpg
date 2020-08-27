@@ -19,13 +19,10 @@ class Game{
     Player player;
     sf::Texture mapTexture;
     TileMap map;
-    //bool isUp;
-    //bool isDown;
-    //bool isLeft;
-    //bool isRight;
+    
     int levelWidth;
     int levelHeight;
-    int level[60*60]={};
+    
     sf::View mainView;
     sf::Time timePerFrame;
     //sf::Vector2f targetTilePosition;
