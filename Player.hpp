@@ -8,9 +8,14 @@ class Player{
     
     
     int speed;
-    sf::Sprite playerSprite;
+    //sf::Sprite playerSprite;
     float timePerFrame;
-    AnimatedSprite playerAnimation;
+    AnimatedSprite playerSprite;
+    Animation walkAnimationLeft;
+    Animation walkAnimationRight;
+    Animation walkAnimationUp;
+    Animation walkAnimationDown;
+    Animation* currentAnimation;
 
     public:
     bool moveUp;

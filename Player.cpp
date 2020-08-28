@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
 Player::Player()
-:playerAnimation(playerSprite,timePerFrame),timePerFrame(400)
+
 {
     moveUp=false;
     moveDown=false;
@@ -14,14 +14,37 @@ Player::Player()
     speed=100;
     canMove=true;
     targetTilePosition=position;
-    playerAnimation.Initialize(1,3,16,16);
+    walkAnimationDown.addFrame(sf::IntRect(0, 0, 16, 16));
+    walkAnimationDown.addFrame(sf::IntRect(32, 0, 16, 16));
+    
+    walkAnimationLeft.addFrame(sf::IntRect(0, 16, 16, 16));
+    walkAnimationLeft.addFrame(sf::IntRect(32, 16, 16, 16));
+
+    walkAnimationRight.addFrame(sf::IntRect(0, 32, 16, 16));
+    walkAnimationRight.addFrame(sf::IntRect(32, 32, 16, 16));
+
+    walkAnimationUp.addFrame(sf::IntRect(0, 48, 16, 16));
+    walkAnimationUp.addFrame(sf::IntRect(32, 48, 16, 16));
+
+    currentAnimation=&walkAnimationDown;
+
+    playerSprite.setFrameTime(sf::seconds(0.2f));
+    playerSprite.play();
+    playerSprite.setLooped(true);
+
+
+    
     
 }
 
 
 
 void Player::SetTexture(const sf::Texture& playerTexture){
-    playerSprite.setTexture(playerTexture);
+    walkAnimationLeft.setSpriteSheet(playerTexture);
+    walkAnimationRight.setSpriteSheet(playerTexture);
+    walkAnimationUp.setSpriteSheet(playerTexture);
+    walkAnimationDown.setSpriteSheet(playerTexture);
+    
 }
 
 
@@ -53,21 +76,25 @@ void Player::Update(sf::Time elapsedTime,sf::View& view){
         targetTilePosition.y-=16;
         canMove=false;
         isMovingUp=true;
+        currentAnimation=&walkAnimationUp;
         }
     else if(moveDown&& canMove){
         targetTilePosition.y+=16;
         canMove=false;
         isMovingDown=true;
+        currentAnimation=&walkAnimationDown;
     }
     else if(moveLeft&& canMove){
         targetTilePosition.x-=16;
         canMove=false;
         isMovingLeft=true;
+        currentAnimation=&walkAnimationLeft;
     }
     else if(moveRight&& canMove){
         targetTilePosition.x+=16;
         canMove=false;
         isMovingRight=true;
+        currentAnimation=&walkAnimationRight;
     }
     if(isMovingLeft || isMovingRight || isMovingUp || isMovingDown){
         sf::Vector2f normal=Normalize(targetTilePosition-position);
@@ -99,7 +126,8 @@ void Player::Update(sf::Time elapsedTime,sf::View& view){
         isMovingLeft=false;
     }
 
-    playerAnimation.Update(elapsedTime.asMilliseconds());
+    playerSprite.play(*currentAnimation);
+    playerSprite.update(elapsedTime);
 
 }
 

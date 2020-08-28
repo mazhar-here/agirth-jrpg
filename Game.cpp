@@ -7,7 +7,7 @@ Game::Game()
     mWindow.create(sf::VideoMode(768, 672), "SFML Application");
     //mWindow.setVerticalSyncEnabled(true);
     //mWindow.setFramerateLimit(30);
-    playerTexture.loadFromFile("green.png");
+    playerTexture.loadFromFile("purple.png");
     mapTexture.loadFromFile("basictiles.png");
     
     map.Initialize(mapTexture,"DemoMap.json");
