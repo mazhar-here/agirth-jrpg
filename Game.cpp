@@ -67,15 +67,15 @@ void Game::Update(sf::Time elapsedTime){
         
         sf::Vector2i playerTile=map.GetTileIndex(player.GetPosition());
 
-        if(map.collisionLayer[playerTile.x+playerTile.y*map.mapWidth]=="1" && (player.isMovingLeft || player.isMovingUp)){
+        if(map.collisionLayer[playerTile.x+playerTile.y*map.GetMapDimensions().x]=="1" && (player.isMovingLeft || player.isMovingUp)){
             player.SetPosition(oldPosition);
         }
-        else if(map.collisionLayer[playerTile.x+1+playerTile.y*map.mapWidth]=="1" && (player.isMovingRight))
+        else if(map.collisionLayer[playerTile.x+1+playerTile.y*map.GetMapDimensions().x]=="1" && (player.isMovingRight))
         {
             player.SetPosition(oldPosition);
 
         }
-        else if(playerTile.y<9 && map.collisionLayer[playerTile.x+(playerTile.y+1)*map.mapWidth]=="1" && (player.isMovingDown)){
+        else if(map.collisionLayer[playerTile.x+(playerTile.y+1)*map.GetMapDimensions().x]=="1" && (player.isMovingDown)){
             player.SetPosition(oldPosition);
 
         }

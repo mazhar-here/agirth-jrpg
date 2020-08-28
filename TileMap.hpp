@@ -9,7 +9,7 @@ class TileMap{
     sf::VertexArray vertexArray2;
     //sf::Texture& tileset;
     int TILE_SIZE;
-    
+    int mapWidth;
     int mapHeight;
     std::vector<int> mapLayer;
     std::vector<int> mapLayer2;
@@ -26,7 +26,7 @@ class TileMap{
     sf::Vector2f GetStartPlayerPosition();
     sf::Vector2f GetTilePixelPosition(int x, int y);
     sf::Vector2<int> GetTileIndex(sf::Vector2f position);
-    int mapWidth;
+    
 
     
 
