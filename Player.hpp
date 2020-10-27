@@ -28,13 +28,12 @@ class Player{
     bool isMovingDown;
     bool canMove;
     sf::Vector2f targetTilePosition;
-        
+    sf::Vector2i moveDirection;    
     sf::Vector2f position;
+
+    
     Player();
-    //Player(const sf::Texture& playerTexture);
     void SetTexture(const sf::Texture& playerTexture);
-    //void HandleInput(sf::Keyboard::Key key,bool isPressed);
-    sf::Vector2<int> Move(sf::Vector2i);
     void Update(sf::Time elapsedTime, sf::View&);
     void Draw(sf::RenderWindow& window);
     sf::Vector2f GetPosition();
@@ -42,8 +41,10 @@ class Player{
     sf::Vector2f Normalize(sf::Vector2f source);
     void SetPosition(sf::Vector2f);
     void SetTargetPosition(sf::Vector2f);
-    
-
+    void MoveRight();
+	void MoveUp();
+	void MoveDown();
+	void MoveLeft();
     
     
 

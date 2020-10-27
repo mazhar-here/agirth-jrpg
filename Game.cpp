@@ -9,7 +9,8 @@ Game::Game()
     //mWindow.setFramerateLimit(30);
     playerTexture.loadFromFile("purple.png");
     mapTexture.loadFromFile("basictiles.png");
-    
+	left=up=down=right=false;
+	
     map.Initialize(mapTexture,"DemoMap.json");
     player.SetTexture(playerTexture);
     player.SetPosition(map.GetStartPlayerPosition());
@@ -67,7 +68,17 @@ void Game::Update(sf::Time elapsedTime){
         
         sf::Vector2i playerTile=map.GetTileIndex(player.GetPosition());
 
-        if(map.collisionLayer[playerTile.x+playerTile.y*map.GetMapDimensions().x]=="1" && (player.isMovingLeft || player.isMovingUp)){
+        if(right)
+			player.MoveRight();
+		else if(left)
+			player.MoveLeft();
+		else if(up)
+			player.MoveUp();
+		else if(down)
+			player.MoveDown();
+		
+		
+		if(map.collisionLayer[playerTile.x+playerTile.y*map.GetMapDimensions().x]=="1" && (player.isMovingLeft || player.isMovingUp)){
             player.SetPosition(oldPosition);
         }
         else if(map.collisionLayer[playerTile.x+1+playerTile.y*map.GetMapDimensions().x]=="1" && (player.isMovingRight))
@@ -83,7 +94,7 @@ void Game::Update(sf::Time elapsedTime){
 
    
         //std::cout<<"Position is: "<<player.position.x<<","<<player.position.y<<"\n";
-        std::cout<<"Map Width,Height: "<<map.GetMapDimensions().x<<","<<map.GetMapDimensions().y<<"\n";
+        //std::cout<<"Map Width,Height: "<<map.GetMapDimensions().x<<","<<map.GetMapDimensions().y<<"\n";
 
         mainView.setCenter(sf::Vector2f((int)player.GetPosition().x,(int)player.GetPosition().y));
         //mainView.setCenter(player.GetPosition());
@@ -100,13 +111,13 @@ void Game::Draw(){
 
 void Game::HandleInput(sf::Keyboard::Key key,bool isPressed){
     if(key==sf::Keyboard::Up)
-        player.moveUp=isPressed;
+        up=isPressed;
     if(key==sf::Keyboard::Down)
-        player.moveDown=isPressed;
+        down=isPressed;
     if(key==sf::Keyboard::Left)
-        player.moveLeft=isPressed;
+        left=isPressed;
     if(key==sf::Keyboard::Right)
-        player.moveRight=isPressed;
+        right=isPressed;
     
 }
 
