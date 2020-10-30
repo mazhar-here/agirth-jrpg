@@ -16,10 +16,7 @@ Game::Game()
     player.SetPosition(map.GetStartPlayerPosition());
     mainView.reset(sf::FloatRect(0,0,256,224));
     timePerFrame=sf::seconds(1.0f/30.0f);
-    
-
-    
-    
+        
 }
 
 void Game::Run(){
@@ -59,14 +56,10 @@ void Game::ProcessEvents(){
 }
 
 void Game::Update(sf::Time elapsedTime){
-    
-
-    
-    
-        sf::Vector2f oldPosition=player.GetPosition();
-        player.Update(elapsedTime,mainView);
         
-        sf::Vector2i playerTile=map.GetTileIndex(player.GetPosition());
+        
+        
+        
 
         if(right)
 			player.MoveRight();
@@ -77,27 +70,11 @@ void Game::Update(sf::Time elapsedTime){
 		else if(down)
 			player.MoveDown();
 		
+        player.Update(elapsedTime,mainView,map);
 		
-		if(map.collisionLayer[playerTile.x+playerTile.y*map.GetMapDimensions().x]=="1" && (player.isMovingLeft || player.isMovingUp)){
-            player.SetPosition(oldPosition);
-        }
-        else if(map.collisionLayer[playerTile.x+1+playerTile.y*map.GetMapDimensions().x]=="1" && (player.isMovingRight))
-        {
-            player.SetPosition(oldPosition);
-
-        }
-        else if(map.collisionLayer[playerTile.x+(playerTile.y+1)*map.GetMapDimensions().x]=="1" && (player.isMovingDown)){
-            player.SetPosition(oldPosition);
-
-        }
-
-
-   
-        //std::cout<<"Position is: "<<player.position.x<<","<<player.position.y<<"\n";
-        //std::cout<<"Map Width,Height: "<<map.GetMapDimensions().x<<","<<map.GetMapDimensions().y<<"\n";
+		
 
         mainView.setCenter(sf::Vector2f((int)player.GetPosition().x,(int)player.GetPosition().y));
-        //mainView.setCenter(player.GetPosition());
 
 }
 

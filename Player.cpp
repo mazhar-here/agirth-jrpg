@@ -4,16 +4,12 @@
 Player::Player()
 
 {
-    moveUp=false;
-    moveDown=false;
-    moveLeft=false;
-    moveRight=false;
     isMovingRight=false;
     isMovingLeft=false;
     isMovingUp=false;
     isMovingDown=false;
     speed=100;
-    canMove=true;
+    ableToMove=true;
     targetTilePosition=position;
     walkAnimationDown.addFrame(sf::IntRect(0, 0, 16, 16));
     walkAnimationDown.addFrame(sf::IntRect(32, 0, 16, 16));
@@ -49,25 +45,34 @@ void Player::SetTexture(const sf::Texture& playerTexture){
 }
 
 
-void Player::Update(sf::Time elapsedTime,sf::View& view){
+void Player::Update(sf::Time elapsedTime,sf::View& view,TileMap& map){
 
-	if(!canMove){
+	
+	sf::Vector2f oldPosition=GetPosition();
+	
+	if(!ableToMove){
 		position.x+=moveDirection.x*speed*elapsedTime.asSeconds();
 		position.y+=moveDirection.y*speed*elapsedTime.asSeconds();
 	}
+	
+	sf::Vector2i playerTile=map.GetTileIndex(GetPosition());	
+	
+	
+	
     
 	
     if(isMovingRight && position.x>=targetTilePosition.x){
         position.x=targetTilePosition.x;
-        canMove=true;
+        ableToMove=true;
         isMovingRight=false;
+		std::cout<<"oldPosition: "<<oldPosition.x<<" , "<<oldPosition.y<<std::endl;
 		std::cout<<"X Position"<<position.x;
 		std::cout<<" Y Position"<<position.y<<std::endl;
 	}
     
 	if(isMovingLeft && position.x<=targetTilePosition.x){
         position.x=targetTilePosition.x;
-        canMove=true;
+        ableToMove=true;
         isMovingLeft=false;
 		std::cout<<"X Position"<<position.x;
 		std::cout<<" Y Position"<<position.y<<std::endl;
@@ -75,7 +80,7 @@ void Player::Update(sf::Time elapsedTime,sf::View& view){
     
 	if(isMovingUp && position.y<=targetTilePosition.y){
         position.y=targetTilePosition.y;
-        canMove=true;
+        ableToMove=true;
         isMovingUp=false;
 		std::cout<<"X Position"<<position.x;
 		std::cout<<" Y Position"<<position.y<<std::endl;
@@ -83,11 +88,27 @@ void Player::Update(sf::Time elapsedTime,sf::View& view){
 	
 	if(isMovingDown && position.y>=targetTilePosition.y){
         position.y=targetTilePosition.y;
-        canMove=true;
+        ableToMove=true;
         isMovingDown=false;
 		std::cout<<"X Position"<<position.x;
 		std::cout<<" Y Position"<<position.y<<std::endl;
     }
+	
+	if(map.collisionLayer[playerTile.x+playerTile.y*map.GetMapDimensions().x]=="1" && (isMovingLeft || isMovingUp)){
+			SetPosition(oldPosition);
+        }
+		// else if(map.collisionLayer[playerTile.x+playerTile.y*map.GetMapDimensions().x]=="1" && (isMovingUp)){
+            // SetPosition(oldPosition);
+        // }
+        else if(map.collisionLayer[playerTile.x+1+playerTile.y*map.GetMapDimensions().x]=="1" && (isMovingRight))
+        {
+            SetPosition(oldPosition);
+
+        }
+        else if(map.collisionLayer[playerTile.x+(playerTile.y+1)*map.GetMapDimensions().x]=="1" && (isMovingDown)){
+			SetPosition(oldPosition);
+		}
+
 	
     playerSprite.play(*currentAnimation);
     playerSprite.update(elapsedTime);
@@ -105,16 +126,16 @@ sf::Vector2f Player::GetPosition(){
 }
 
 void Player::SetPosition(sf::Vector2f position){
-    this->position=position;
+	this->position=position;
     targetTilePosition=position;
 }
 
 
 
 void Player::MoveRight(){
-	if(canMove){
+	if(ableToMove){
 		targetTilePosition.x=position.x+16;
-		canMove=false;
+		ableToMove=false;
 		isMovingRight=true;
 		moveDirection.x=1;
 		moveDirection.y=0;
@@ -123,9 +144,9 @@ void Player::MoveRight(){
 }
 
 void Player::MoveLeft(){
-	if(canMove){
+	if(ableToMove){
 		targetTilePosition.x=position.x-16;
-		canMove=false;
+		ableToMove=false;
 		isMovingLeft=true;
 		moveDirection.x=-1;
 		moveDirection.y=0;
@@ -134,9 +155,9 @@ void Player::MoveLeft(){
 }
 
 void Player::MoveUp(){
-	if(canMove){
+	if(ableToMove){
 		targetTilePosition.y=position.y-16;
-		canMove=false;
+		ableToMove=false;
 		isMovingUp=true;
 		moveDirection.y=-1;
 		moveDirection.x=0;
@@ -145,9 +166,9 @@ void Player::MoveUp(){
 }
 
 void Player::MoveDown(){
-	if(canMove){
+	if(ableToMove){
 		targetTilePosition.y=position.y+16;
-		canMove=false;
+		ableToMove=false;
 		isMovingDown=true;
 		moveDirection.y=1;
 		moveDirection.x=0;

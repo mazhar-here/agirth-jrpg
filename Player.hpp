@@ -1,6 +1,9 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
 #include "AnimatedSprite.hpp"
 #include <iostream>
+#include "TileMap.hpp"
 
 
 class Player{
@@ -22,7 +25,7 @@ class Player{
     bool isMovingLeft;
     bool isMovingUp;
     bool isMovingDown;
-    bool canMove;
+    bool ableToMove;
     
 	sf::Vector2f targetTilePosition;
     sf::Vector2i moveDirection;    
@@ -31,7 +34,7 @@ class Player{
     
     Player();
     void SetTexture(const sf::Texture& playerTexture);
-    void Update(sf::Time elapsedTime, sf::View&);
+    void Update(sf::Time elapsedTime, sf::View&,TileMap& map);
     void Draw(sf::RenderWindow& window);
     sf::Vector2f GetPosition();
     sf::Vector2<int> TargetTile;
