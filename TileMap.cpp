@@ -105,7 +105,7 @@ int TileMap::GetTileSize(){
         return TILE_SIZE;
 }
 
-sf::Vector2<int> TileMap::GetTileIndex(sf::Vector2f position){
+sf::Vector2<int> TileMap::GetTileIndex(sf::Vector2f position) const{
    int tileX=position.x/TILE_SIZE;
    int tileY=position.y/TILE_SIZE;
    return sf::Vector2<int>(tileX,tileY); 
@@ -115,7 +115,7 @@ sf::Vector2f TileMap::GetTilePixelPosition(int x, int y){
     return sf::Vector2f(x*TILE_SIZE,y*TILE_SIZE);
 }
 
-sf::Vector2i TileMap::GetMapDimensions(){
+sf::Vector2i TileMap::GetMapDimensions() const{
     return sf::Vector2i(mapWidth,mapHeight);
 }
 

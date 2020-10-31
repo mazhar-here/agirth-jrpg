@@ -6,13 +6,13 @@
 #include "TileMap.hpp"
 
 
-class Player{
+class GameObject{
     
     
     
     int speed;
     float timePerFrame;
-    AnimatedSprite playerSprite;
+    AnimatedSprite gameObjectSprite;
     Animation walkAnimationLeft;
     Animation walkAnimationRight;
     Animation walkAnimationUp;
@@ -32,14 +32,12 @@ class Player{
     sf::Vector2f position;
 
     
-    Player();
-    void SetTexture(const sf::Texture& playerTexture);
-    void Update(sf::Time elapsedTime, sf::View&,TileMap& map);
+    GameObject();
+    void SetTexture(const sf::Texture& gameObjectTexture);
+    void Update(sf::Time elapsedTime, sf::View&,const TileMap& map);
     void Draw(sf::RenderWindow& window);
     sf::Vector2f GetPosition();
-    sf::Vector2<int> TargetTile;
     void SetPosition(sf::Vector2f);
-    void SetTargetPosition(sf::Vector2f);
     void MoveRight();
 	void MoveUp();
 	void MoveDown();

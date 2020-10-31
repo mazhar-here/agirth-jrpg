@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "Player.hpp"
+#include "GameObject.hpp"
 #include "TileMap.hpp"
 
 class Game{
@@ -19,7 +19,8 @@ class Game{
 
     sf::RenderWindow mWindow;
     sf::Texture playerTexture;
-    Player player;
+    GameObject player;
+	//GameObject npc;
     sf::Texture mapTexture;
     TileMap map;
 	

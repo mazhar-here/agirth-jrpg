@@ -1,7 +1,7 @@
-#include "Player.hpp"
+#include "GameObject.hpp"
 #include "iostream"
 
-Player::Player()
+GameObject::GameObject()
 
 {
     isMovingRight=false;
@@ -25,9 +25,9 @@ Player::Player()
 
     currentAnimation=&walkAnimationDown;
 
-    playerSprite.setFrameTime(sf::seconds(0.2f));
-    playerSprite.play();
-    playerSprite.setLooped(true);
+    gameObjectSprite.setFrameTime(sf::seconds(0.2f));
+    gameObjectSprite.play();
+    gameObjectSprite.setLooped(true);
 	
 
     
@@ -36,16 +36,16 @@ Player::Player()
 
 
 
-void Player::SetTexture(const sf::Texture& playerTexture){
-    walkAnimationLeft.setSpriteSheet(playerTexture);
-    walkAnimationRight.setSpriteSheet(playerTexture);
-    walkAnimationUp.setSpriteSheet(playerTexture);
-    walkAnimationDown.setSpriteSheet(playerTexture);
+void GameObject::SetTexture(const sf::Texture& gameObjectTexture){
+    walkAnimationLeft.setSpriteSheet(gameObjectTexture);
+    walkAnimationRight.setSpriteSheet(gameObjectTexture);
+    walkAnimationUp.setSpriteSheet(gameObjectTexture);
+    walkAnimationDown.setSpriteSheet(gameObjectTexture);
     
 }
 
 
-void Player::Update(sf::Time elapsedTime,sf::View& view,TileMap& map){
+void GameObject::Update(sf::Time elapsedTime,sf::View& view,const TileMap& map){
 
 	
 	sf::Vector2f oldPosition=GetPosition();
@@ -55,7 +55,7 @@ void Player::Update(sf::Time elapsedTime,sf::View& view,TileMap& map){
 		position.y+=moveDirection.y*speed*elapsedTime.asSeconds();
 	}
 	
-	sf::Vector2i playerTile=map.GetTileIndex(GetPosition());	
+	sf::Vector2i gameObjectTile=map.GetTileIndex(GetPosition());	
 	
 	
 	
@@ -94,45 +94,45 @@ void Player::Update(sf::Time elapsedTime,sf::View& view,TileMap& map){
 		std::cout<<" Y Position"<<position.y<<std::endl;
     }
 	
-	if(map.collisionLayer[playerTile.x+playerTile.y*map.GetMapDimensions().x]=="1" && (isMovingLeft || isMovingUp)){
+	if(map.collisionLayer[gameObjectTile.x+gameObjectTile.y*map.GetMapDimensions().x]=="1" && (isMovingLeft || isMovingUp)){
 			SetPosition(oldPosition);
         }
-		// else if(map.collisionLayer[playerTile.x+playerTile.y*map.GetMapDimensions().x]=="1" && (isMovingUp)){
+		// else if(map.collisionLayer[gameObjectTile.x+gameObjectTile.y*map.GetMapDimensions().x]=="1" && (isMovingUp)){
             // SetPosition(oldPosition);
         // }
-        else if(map.collisionLayer[playerTile.x+1+playerTile.y*map.GetMapDimensions().x]=="1" && (isMovingRight))
+        else if(map.collisionLayer[gameObjectTile.x+1+gameObjectTile.y*map.GetMapDimensions().x]=="1" && (isMovingRight))
         {
             SetPosition(oldPosition);
 
         }
-        else if(map.collisionLayer[playerTile.x+(playerTile.y+1)*map.GetMapDimensions().x]=="1" && (isMovingDown)){
+        else if(map.collisionLayer[gameObjectTile.x+(gameObjectTile.y+1)*map.GetMapDimensions().x]=="1" && (isMovingDown)){
 			SetPosition(oldPosition);
 		}
 
 	
-    playerSprite.play(*currentAnimation);
-    playerSprite.update(elapsedTime);
+    gameObjectSprite.play(*currentAnimation);
+    gameObjectSprite.update(elapsedTime);
 
 }
 
-void Player::Draw(sf::RenderWindow& window){
-    playerSprite.setPosition(sf::Vector2f((int)position.x,(int)position.y));
-    window.draw(playerSprite);
+void GameObject::Draw(sf::RenderWindow& window){
+    gameObjectSprite.setPosition(sf::Vector2f((int)position.x,(int)position.y));
+    window.draw(gameObjectSprite);
     
 }
 
-sf::Vector2f Player::GetPosition(){
+sf::Vector2f GameObject::GetPosition(){
     return position;
 }
 
-void Player::SetPosition(sf::Vector2f position){
+void GameObject::SetPosition(sf::Vector2f position){
 	this->position=position;
     targetTilePosition=position;
 }
 
 
 
-void Player::MoveRight(){
+void GameObject::MoveRight(){
 	if(ableToMove){
 		targetTilePosition.x=position.x+16;
 		ableToMove=false;
@@ -143,7 +143,7 @@ void Player::MoveRight(){
 	}
 }
 
-void Player::MoveLeft(){
+void GameObject::MoveLeft(){
 	if(ableToMove){
 		targetTilePosition.x=position.x-16;
 		ableToMove=false;
@@ -154,7 +154,7 @@ void Player::MoveLeft(){
 	}
 }
 
-void Player::MoveUp(){
+void GameObject::MoveUp(){
 	if(ableToMove){
 		targetTilePosition.y=position.y-16;
 		ableToMove=false;
@@ -165,7 +165,7 @@ void Player::MoveUp(){
 	}
 }
 
-void Player::MoveDown(){
+void GameObject::MoveDown(){
 	if(ableToMove){
 		targetTilePosition.y=position.y+16;
 		ableToMove=false;

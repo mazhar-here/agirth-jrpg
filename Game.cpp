@@ -14,6 +14,8 @@ Game::Game()
     map.Initialize(mapTexture,"DemoMap.json");
     player.SetTexture(playerTexture);
     player.SetPosition(map.GetStartPlayerPosition());
+	// npc.SetTexture(playerTexture);
+	// npc.SetPosition(sf::Vector2f(80,64));
     mainView.reset(sf::FloatRect(0,0,256,224));
     timePerFrame=sf::seconds(1.0f/30.0f);
         
@@ -71,7 +73,7 @@ void Game::Update(sf::Time elapsedTime){
 			player.MoveDown();
 		
         player.Update(elapsedTime,mainView,map);
-		
+		// npc.Update(elapsedTime,mainView,map);   
 		
 
         mainView.setCenter(sf::Vector2f((int)player.GetPosition().x,(int)player.GetPosition().y));
@@ -83,6 +85,7 @@ void Game::Draw(){
     mWindow.setView(mainView);
     map.Draw(mWindow,mapTexture);
     player.Draw(mWindow);
+	// npc.Draw(mWindow);
     mWindow.display();
 }
 
