@@ -125,6 +125,13 @@ sf::Vector2f TileMap::GetStartPlayerPosition(){
     return startPlayerPosition;
 }
 
+bool TileMap::IsPassable(const sf::Vector2i gameObjectTile) const{
+	if(collisionLayer[gameObjectTile.x+gameObjectTile.y*GetMapDimensions().x]=="1"){
+			return true;
+        }
+	return false;
+}
+
 
 
 

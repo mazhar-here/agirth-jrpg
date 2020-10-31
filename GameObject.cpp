@@ -94,18 +94,17 @@ void GameObject::Update(sf::Time elapsedTime,sf::View& view,const TileMap& map){
 		std::cout<<" Y Position"<<position.y<<std::endl;
     }
 	
-	if(map.collisionLayer[gameObjectTile.x+gameObjectTile.y*map.GetMapDimensions().x]=="1" && (isMovingLeft || isMovingUp)){
+	if(map.IsPassable(gameObjectTile) && (isMovingLeft || isMovingUp)){
 			SetPosition(oldPosition);
         }
-		// else if(map.collisionLayer[gameObjectTile.x+gameObjectTile.y*map.GetMapDimensions().x]=="1" && (isMovingUp)){
-            // SetPosition(oldPosition);
-        // }
-        else if(map.collisionLayer[gameObjectTile.x+1+gameObjectTile.y*map.GetMapDimensions().x]=="1" && (isMovingRight))
+
+        else if(map.IsPassable(sf::Vector2i(gameObjectTile.x+1,gameObjectTile.y)) && (isMovingRight))
         {
             SetPosition(oldPosition);
 
         }
-        else if(map.collisionLayer[gameObjectTile.x+(gameObjectTile.y+1)*map.GetMapDimensions().x]=="1" && (isMovingDown)){
+
+        else if(map.IsPassable(sf::Vector2i(gameObjectTile.x,gameObjectTile.y+1)) && (isMovingDown)){
 			SetPosition(oldPosition);
 		}
 
