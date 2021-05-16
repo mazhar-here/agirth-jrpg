@@ -5,6 +5,7 @@
 #include "TileMap.hpp"
 
 class Game{
+	
     public:
     Game();
     void Run();
@@ -20,7 +21,7 @@ class Game{
     sf::RenderWindow mWindow;
     sf::Texture playerTexture;
     GameObject player;
-	//GameObject npc;
+	GameObject npc;
     sf::Texture mapTexture;
     TileMap map;
 	
