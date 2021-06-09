@@ -1,7 +1,8 @@
-#pragma once
+#ifndef GAME_HPP
+#define GAME_HPP
 
 #include <SFML/Graphics.hpp>
-#include "GameObject.hpp"
+#include "Player.hpp"
 #include "TileMap.hpp"
 
 class Game{
@@ -20,8 +21,7 @@ class Game{
 
     sf::RenderWindow mWindow;
     sf::Texture playerTexture;
-    GameObject player;
-	GameObject npc;
+    Player player;
     sf::Texture mapTexture;
     TileMap map;
 	
@@ -39,3 +39,5 @@ class Game{
 
     
 };
+
+#endif
