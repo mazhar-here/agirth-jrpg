@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Player.hpp"
+#include "Npc.hpp"
 #include "TileMap.hpp"
 
 class Game{
@@ -21,7 +22,9 @@ class Game{
 
     sf::RenderWindow mWindow;
     sf::Texture playerTexture;
+	sf::Texture npcTexture;
     Player player;
+	Npc npc;
     sf::Texture mapTexture;
     TileMap map;
 	

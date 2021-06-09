@@ -17,7 +17,7 @@ class GameObject{
 	
 	GameObject();
 	virtual void SetTexture(const sf::Texture& gameObjectTexture);
-    virtual void Update(sf::Time elapsedTime, const TileMap& map)=0;
+    virtual void Update(sf::Time elapsedTime, const TileMap& map);
     virtual void Draw(sf::RenderWindow& window);
 	virtual sf::Vector2f GetPosition();
     virtual void SetPosition(sf::Vector2f position);

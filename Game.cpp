@@ -8,14 +8,15 @@ Game::Game()
     //mWindow.setVerticalSyncEnabled(true);
     //mWindow.setFramerateLimit(30);
     playerTexture.loadFromFile("purple.png");
+	npcTexture.loadFromFile("characters.png");
     mapTexture.loadFromFile("basictiles.png");
 	left=up=down=right=false;
 	
     map.Initialize(mapTexture,"DemoMap.json");
     player.SetTexture(playerTexture);
     player.SetPosition(map.GetStartPlayerPosition());
-	// npc.SetTexture(playerTexture);
-	// npc.SetPosition(sf::Vector2f(96,48));
+	npc.SetTexture(sf::IntRect(96,0, 192, 128), npcTexture);
+	npc.SetPosition(sf::Vector2f(96,48));
 	
     mainView.reset(sf::FloatRect(0,0,256,224));
     timePerFrame=sf::seconds(1.0f/30.0f);
@@ -66,7 +67,6 @@ void Game::Update(sf::Time elapsedTime){
 
         if(right)
 			player.MoveRight();
-			
 		else if(left)
 			player.MoveLeft();
 		else if(up)
@@ -74,8 +74,8 @@ void Game::Update(sf::Time elapsedTime){
 		else if(down)
 			player.MoveDown();
 		
-        player.Update(elapsedTime,map);
-		// npc.Update(elapsedTime,mainView,map);  
+        player.Update(elapsedTime, map);
+		npc.Update(elapsedTime, map);  
 		
 
         mainView.setCenter(sf::Vector2f((int)player.GetPosition().x,
@@ -88,7 +88,7 @@ void Game::Draw(){
     mWindow.setView(mainView);
     map.Draw(mWindow,mapTexture);
     player.Draw(mWindow);
-	// npc.Draw(mWindow);
+	npc.Draw(mWindow);
     mWindow.display();
 }
 

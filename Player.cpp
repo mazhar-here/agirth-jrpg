@@ -94,6 +94,7 @@ void Player::Update(sf::Time elapsedTime, const TileMap& map){
 		
 		gameObjectSprite.play(*currentAnimation);
 		gameObjectSprite.update(elapsedTime);
+		gameObjectSprite.setPosition(sf::Vector2f((int)position.x,(int)position.y));
 	
 }
 
@@ -106,7 +107,6 @@ void Player::SetTexture(const sf::Texture& gameObjectTexture){
 }
 
 void Player::Draw(sf::RenderWindow& window){
-	gameObjectSprite.setPosition(sf::Vector2f((int)position.x,(int)position.y));
     window.draw(gameObjectSprite);	
 }
 

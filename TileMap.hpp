@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TILE_MAP_HPP
+#define TILE_MAP_HPP
 
 #include <SFML/Graphics.hpp>
 #include "json.hpp"
@@ -36,3 +37,5 @@ class TileMap{
 
 
 };
+
+#endif

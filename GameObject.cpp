@@ -9,6 +9,12 @@ GameObject::GameObject(){
 }
 
 
+void GameObject::Update(sf::Time elapsedTime, const TileMap& map){
+	
+	gameObjectSprite.setPosition(sf::Vector2f((int)position.x,(int)position.y));
+	
+}
+
 
 void GameObject::SetTexture(const sf::Texture& gameObjectTexture){
 	
@@ -17,7 +23,6 @@ void GameObject::SetTexture(const sf::Texture& gameObjectTexture){
 }
 
 void GameObject::Draw(sf::RenderWindow& window){
-	gameObjectSprite.setPosition(sf::Vector2f((int)position.x,(int)position.y));
     window.draw(gameObjectSprite);	
 }
 
