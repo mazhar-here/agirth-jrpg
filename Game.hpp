@@ -5,6 +5,7 @@
 #include "Player.hpp"
 #include "Npc.hpp"
 #include "TileMap.hpp"
+#include <vector>
 
 class Game{
 	
@@ -24,9 +25,10 @@ class Game{
     sf::Texture playerTexture;
 	sf::Texture npcTexture;
     Player player;
-	Npc npc;
+	// Npc npc;
     sf::Texture mapTexture;
     TileMap map;
+	std::vector<Npc> NpcList;
 	
     bool right;
 	bool left;

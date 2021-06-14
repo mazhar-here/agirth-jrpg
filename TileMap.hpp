@@ -2,8 +2,12 @@
 #define TILE_MAP_HPP
 
 #include <SFML/Graphics.hpp>
-#include "json.hpp"
 #include <fstream>
+#include <map>
+#include <string>
+#include "json.hpp"
+#include "Npc.hpp"
+
 
 class TileMap{
     //TileMap();
@@ -14,11 +18,11 @@ class TileMap{
     int TILE_SIZE;
     int mapWidth;
     int mapHeight;
-    std::vector<int> mapLayer;
-    std::vector<int> mapLayer2;
-    std::vector<std::string> collisionLayer;
+    nlohmann::json mapLayer;
+    nlohmann::json mapLayer2;
+    nlohmann::json collisionLayer;
+	nlohmann::json entityLayer;
     sf::Vector2f startPlayerPosition;
-    
     
     
     public:
@@ -30,7 +34,9 @@ class TileMap{
     sf::Vector2f GetTilePixelPosition(int x, int y);
     sf::Vector2<int> GetTileIndex(sf::Vector2f position) const;
     bool IsPassable(const sf::Vector2i gameObjectTile) const;
-
+	std::map<std::string, sf::Vector2f> GetNpcList();
+	
+    
     
 
     

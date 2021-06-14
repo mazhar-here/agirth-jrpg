@@ -3,7 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "TileMap.hpp"
+// #include "TileMap.hpp"
+class TileMap;
 
 class GameObject{
 	
@@ -21,6 +22,7 @@ class GameObject{
     virtual void Draw(sf::RenderWindow& window);
 	virtual sf::Vector2f GetPosition();
     virtual void SetPosition(sf::Vector2f position);
+	virtual ~GameObject(){};
 	
 };
  

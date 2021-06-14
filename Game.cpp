@@ -15,8 +15,23 @@ Game::Game()
     map.Initialize(mapTexture,"DemoMap.json");
     player.SetTexture(playerTexture);
     player.SetPosition(map.GetStartPlayerPosition());
-	npc.SetTexture(sf::IntRect(96,0, 192, 128), npcTexture);
-	npc.SetPosition(sf::Vector2f(96,48));
+	// npc.SetTexture(sf::IntRect(96,0, 192, 128), npcTexture);
+	// npc.SetPosition(sf::Vector2f(96,48));
+	auto tempNpcList=map.GetNpcList();
+	for(auto it=tempNpcList.cbegin(); it!=tempNpcList.cend();it++){
+		Npc tempNpc;
+		tempNpc.SetPosition(it->second);
+		if(it->first=="bob")
+			tempNpc.SetTexture(sf::IntRect(96,0, 192, 128), npcTexture);
+		else if(it->first=="tom")
+			tempNpc.SetTexture(sf::IntRect(144,0, 192, 128), npcTexture);
+		else if(it->first=="jerry")
+			tempNpc.SetTexture(sf::IntRect(0,64, 192, 128), npcTexture);
+		
+		
+		NpcList.push_back(tempNpc);
+	}
+	
 	
     mainView.reset(sf::FloatRect(0,0,256,224));
     timePerFrame=sf::seconds(1.0f/30.0f);
@@ -75,8 +90,10 @@ void Game::Update(sf::Time elapsedTime){
 			player.MoveDown();
 		
         player.Update(elapsedTime, map);
-		npc.Update(elapsedTime, map);  
-		
+		// npc.Update(elapsedTime, map);  
+		for (auto it = NpcList.begin(); it != NpcList.end(); ++it){
+			it->Update(elapsedTime, map);
+		}
 
         mainView.setCenter(sf::Vector2f((int)player.GetPosition().x,
 			(int)player.GetPosition().y));
@@ -88,7 +105,11 @@ void Game::Draw(){
     mWindow.setView(mainView);
     map.Draw(mWindow,mapTexture);
     player.Draw(mWindow);
-	npc.Draw(mWindow);
+	// npc.Draw(mWindow);
+	for (auto it = NpcList.begin(); it != NpcList.end(); ++it){
+			it->Draw(mWindow);
+	}
+	
     mWindow.display();
 }
 

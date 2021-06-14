@@ -6,7 +6,7 @@ MovableGameObject::MovableGameObject(){
     targetTilePosition=position;
 }
 void MovableGameObject::Update(sf::Time elapsedTime, const TileMap& map){
-		std::cout<<"x: "<< position.x<<", "<<"y: "<<position.y<<std::endl;
+		// std::cout<<"x: "<< position.x<<", "<<"y: "<<position.y<<std::endl;
 		switch(gameObjectState){
 			case state::MOVING_RIGHT:
 				position.x+=speed*elapsedTime.asSeconds();

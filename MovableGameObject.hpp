@@ -30,7 +30,8 @@ class MovableGameObject: public GameObject{
 	virtual void MoveDown();
 	virtual void MoveLeft();
 	virtual void Update(sf::Time elapsedTime, const TileMap& map) override;
-
+	
+	virtual ~MovableGameObject(){};
 
 };
 

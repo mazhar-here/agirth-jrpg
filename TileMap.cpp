@@ -7,21 +7,25 @@ void TileMap::Initialize(const sf::Texture& tileset,const std::string mapPath){
     json demoMap;
     iDemoMap>>demoMap;
     
-    std::vector<int>tempMapLayer=demoMap["layers"][0]["data"];
-    mapLayer=tempMapLayer;
+    // std::vector<int>tempMapLayer=demoMap["layers"][0]["data"];
+    mapLayer=demoMap["layers"][0]["data"];
+    // mapLayer=tempMapLayer;
 
-    std::vector<int>tempMapLayer2=demoMap["layers"][1]["data"];
-    mapLayer2=tempMapLayer2;    
+    // std::vector<int>tempMapLayer2=demoMap["layers"][1]["data"];
+    mapLayer2=demoMap["layers"][1]["data"];
+    // mapLayer2=tempMapLayer2;    
 
-    std::vector<std::string>tempCollisionLayer=demoMap["layers"][2]["grid"];
-    collisionLayer=tempCollisionLayer;
+    // std::vector<std::string>tempCollisionLayer=demoMap["layers"][2]["grid"];
+    collisionLayer=demoMap["layers"][2]["grid"];
+    // collisionLayer=tempCollisionLayer;
 
+	entityLayer=demoMap["layers"][3]["entities"];
 
 
     mapHeight=demoMap["layers"][0]["gridCellsY"];
     mapWidth=demoMap["layers"][0]["gridCellsX"];;
     TILE_SIZE=demoMap["layers"][0]["gridCellWidth"];
-    startPlayerPosition=sf::Vector2f(demoMap["layers"][3]["entities"][0]["x"],demoMap["layers"][3]["entities"][0]["y"]);
+    startPlayerPosition=sf::Vector2f(entityLayer[0]["x"],demoMap["layers"][3]["entities"][0]["y"]);
 
 
     vertexArray.setPrimitiveType(sf::Quads);
@@ -88,7 +92,8 @@ void TileMap::Initialize(const sf::Texture& tileset,const std::string mapPath){
 
         }
     }
-
+	
+	GetNpcList();
 
 
 
@@ -132,6 +137,21 @@ bool TileMap::IsPassable(const sf::Vector2i gameObjectTile) const{
 	return false;
 }
 
+std::map<std::string, sf::Vector2f> TileMap::GetNpcList(){
+	
+	std::map<std::string, sf::Vector2f> tempNpcList;
+	
+	for (json::iterator it = entityLayer.begin()+1 ; it != entityLayer.end(); ++it) {
+		std::string tempName=(*it)["name"];
+		sf::Vector2f tempPosition=sf::Vector2f((*it)["x"],(*it)["y"]);
+		
+		std::cout<<tempName<<":"<<tempPosition.x<<","<<tempPosition.y<<std::endl;
+		tempNpcList.insert({tempName,tempPosition});
+	}
+	
+	return tempNpcList;
+	
+}
 
 
 
