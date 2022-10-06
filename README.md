@@ -1,2 +1,2 @@
-# agirth-jrpg
-A 2d JRPG game in very early development. It uses my own custom C++ engine using the SFML library. 
+# 2d Top Down Engine
+A custom 2d topdown C++ game engine for learning purposes. 
